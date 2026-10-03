@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>DAM DEFENDER — Subsea Hydro-Pneumatic Concrete Injection System</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="stage">
+  <canvas id="game"></canvas>
+  <div id="vignette" class="hidden"></div>
+
+  <!-- ============ HUD ============ -->
+  <header id="hud-top" class="hud">
+    <div class="hud-block brand">
+      <div class="brand-mark">▲</div>
+      <div class="brand-text">
+        <span class="brand-name">DAM&nbsp;DEFENDER</span>
+        <span class="brand-sub">SUBSEA&nbsp;HP-CIS</span>
+      </div>
+    </div>
+    <div class="hud-block timer">
+      <span class="label">T-MINUS</span>
+      <span id="hud-timer" class="timer-value">60.0</span>
+      <span id="hud-critical" class="critical-label hidden">CRITICAL</span>
+    </div>
+    <div class="hud-block controls">
+      <span id="hud-status" class="status-label">STANDBY</span>
+      <button id="btn-boost" class="hud-btn boost" aria-label="Polymer boost" aria-pressed="false">POLYMER&nbsp;BOOST</button>
+      <button id="btn-mute" class="hud-btn" aria-label="Toggle sound" aria-pressed="false">SND&nbsp;ON</button>
+      <button id="btn-full" class="hud-btn" aria-label="Toggle fullscreen">FULL</button>
+      <button id="btn-pause" class="hud-btn" aria-label="Pause">PAUSE</button>
+    </div>
+  </header>
+
+  <footer id="hud-bottom" class="hud">
+    <div class="meter integrity">
+      <div class="meter-head">
+        <span class="label">DAM&nbsp;INTEGRITY</span>
+        <span id="m-integrity-v" class="mono">35%</span>
+      </div>
+      <div class="meter-bar big"><div id="m-integrity" class="fill integrity"></div></div>
+    </div>
+    <div class="meter">
+      <div class="meter-head">
+        <span class="label">BREACHES</span>
+        <span id="m-breaches" class="mono">0 / 5</span>
+      </div>
+      <div class="meter-bar"><div id="m-breaches-f" class="fill repair"></div></div>
+    </div>
+    <div class="meter">
+      <div class="meter-head">
+        <span class="label">CEMENT</span>
+        <span id="m-cement-v" class="mono">0.0 / 30u</span>
+      </div>
+      <div class="meter-bar"><div id="m-cement" class="fill inject"></div></div>
+    </div>
+    <div class="stat"><span class="label">SCORE</span><span id="m-score" class="mono big">0</span></div>
+    <div class="stat"><span class="label">ACCURACY</span><span id="m-acc" class="mono big">0%</span></div>
+    <div class="stat strikes"><span class="label">STRIKES</span><span id="m-strikes" class="mono big">0</span></div>
+  </footer>
+
+  <div id="flash" class="flash hidden">MARINE IMPACT <b>-10s</b></div>
+
+  <!-- ============ START OVERLAY ============ -->
+  <div id="ov-start" class="overlay">
+    <div class="panel">
+      <div class="eyebrow">SUBSEA HYDRO-PNEUMATIC CONCRETE INJECTION SYSTEM</div>
+      <h1 class="title">DAM<br>DEFENDER</h1>
+      <div class="meta">
+        <span>SECTOR 07 — NORTH FACE</span>
+        <span>DEPTH −84&nbsp;M</span>
+        <span>VISIBILITY 12&nbsp;M</span>
+        <span>CURRENT 0.4&nbsp;KN</span>
+      </div>
+      <p class="brief">Seal <b>5 structural breaches</b> (~6s of cement each)
+        inside the <b>60 second</b> clock. Only direct hits repair —
+        <b>misses fix nothing.</b></p>
+      <ul class="rules">
+        <li><b>AIM</b> precisely at a glowing breach and hold to inject — it takes ~6s to plate over.</li>
+        <li><b>AVOID</b> the fish — a marine impact costs <b>10&nbsp;seconds</b> and blocks the line.</li>
+        <li><b>BOOST</b> — POLYMER BOOST (B) doubles repair speed for 5s, recharges in 20s.</li>
+      </ul>
+      <button id="btn-start" class="cta">BEGIN REPAIR</button>
+      <div class="hint">MOUSE / TOUCH / SPACE — HOLD TO INJECT · B — POLYMER BOOST</div>
+    </div>
+  </div>
+
+  <!-- ============ PAUSE OVERLAY ============ -->
+  <div id="ov-pause" class="overlay hidden">
+    <div class="panel slim">
+      <div class="eyebrow">OPERATION SUSPENDED</div>
+      <h2 class="title-sm">PAUSED</h2>
+      <p class="brief">Clock frozen. Pressure holding.</p>
+      <button id="btn-resume" class="cta">RESUME REPAIR</button>
+    </div>
+  </div>
+
+  <!-- ============ END OVERLAY ============ -->
+  <div id="ov-end" class="overlay hidden">
+    <div class="panel slim">
+      <div id="end-eyebrow" class="eyebrow">OPERATION COMPLETE</div>
+      <h2 id="end-title" class="title-sm">DAM RESTABILIZED</h2>
+      <div class="end-stats">
+        <div><span class="label">SCORE</span><span id="e-score" class="mono">0</span></div>
+        <div><span class="label">ACCURACY</span><span id="e-acc" class="mono">0%</span></div>
+        <div><span class="label">TIME&nbsp;LEFT</span><span id="e-time" class="mono">0s</span></div>
+        <div><span class="label">CEMENT</span><span id="e-cement" class="mono">0u</span></div>
+        <div><span class="label">STRIKES</span><span id="e-strikes" class="mono">0</span></div>
+      </div>
+      <button id="btn-replay" class="cta">RE-DEPLOY</button>
+    </div>
+  </div>
+</div>
+
+<!--
+  Soundtrack slots: any mode missing a file falls back to the
+  built-in synth score. Additional slots: won, lost.
+-->
+<script>
+  window.DAM_AUDIO_TRACKS = Object.assign(
+    { playing: 'assets/bg.mp3' }, window.DAM_AUDIO_TRACKS);
+</script>
+<script src="game-core.js"></script>
+<script src="game-audio.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
