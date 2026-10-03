@@ -11,10 +11,9 @@ A self-contained browser arcade game about underwater structural engineering —
 which is a real job, we checked. Vanilla JS + Canvas. No installs, no build
 step, no mercy.
 
-**A spiritual successor to the civil engineering department of
-[Athiradi (2026)](https://en.wikipedia.org/wiki/Athiradi_(2026_film))** — the
-movie that asked "what if a civil engineering student's greatest weapon was
-cement?" and accidentally invented this game.
+**Inspired by [Athiradi (2026)](https://en.wikipedia.org/wiki/Athiradi_(2026_film))**
+— the Malayalam masala epic where a civil engineering student's greatest weapon
+was always going to be cement.
 
 ![Gameplay](docs/media/gameplay-preview.png)
 
@@ -39,35 +38,40 @@ There is one complication. The local fish have decided that your repair beam
 is, scientifically speaking, a great place to be. Every fish that crosses your
 firing line costs you **10 seconds** you absolutely do not have.
 
-## � The Lore: Athiradi Mode
+## 🎬 The Lore
 
-For the uninitiated: **[Athiradi](https://en.wikipedia.org/wiki/Athiradi_(2026_film))**
-is the 2026 Malayalam masala masterpiece where **Samkutty "Sam Boy" Oommen**
-(Basil Joseph), a civil engineering student at BCET, spends four years and one
-emotional breakdown trying to revive a banned college fest — while **Thotta
-Kuttan** (Tovino Thomas), a retired goon and aspiring playback singer, dedicates
-his life to ruining it.
+In **[Athiradi](https://en.wikipedia.org/wiki/Athiradi_(2026_film))** (2026),
+Samkutty "Sam Boy" Oommen — civil engineering student and BCET's most
+persistent son — spends four years fighting a college committee to revive the
+banned Aarohan fest, armed with nothing but delusion, a loyal friend, and one
+(1) Vineeth Sreenivasan cameo. Meanwhile, Thotta Kuttan — retired goon,
+aspiring playback singer, professional path-blocker — dedicates his life to
+ensuring the fest collapses.
 
-This game is the exam Sam Boy never got to sit for.
+This game asks the question the movie was too busy being awesome to answer:
+**what if Sam Boy's degree actually did something?**
 
-| DAM DEFENDER | Athiradi equivalent |
-|--------------|---------------------|
-| You, the operator | **Samkutty** — final-year energy, doomed project, refuses to quit |
-| The Cement Thrower | The degree Sam Boy actually earned. BCET's finest export. |
-| The fish | **Thotta Kuttan's gang** — show up uninvited, block your path, weirdly serene about it |
-| MARINE IMPACT −10s | An *athiradi*. The title literally translates to "strike." We don't make the rules. Actually we did. |
-| The 60s clock | The college committee deciding whether your fest gets approved |
-| POLYMER BOOST | A **Vineeth Sreenivasan cameo** — arrives suddenly, makes everything dramatically better for 5 seconds |
-| Sealed breach | One step closer to conducting Aarohan. The fest lives. |
-| DAM FAILURE | Fest banned again. Joppan is disappointed in you. |
-| Your score | Stolen credit. Vivi did this. |
+The answer is the **Cement Thrower** — the Subsea Hydro-Pneumatic Concrete
+Injection System, an improvised instrument of structural chaos that launches
+wet concrete at the face of physics. In the film's universe it would have been
+the greatest masala prop since the robot Kuttan beheaded. Here, it is mounted
+on the seafloor at −84m and it is your only hope.
 
-The Cement Thrower is the ultimate masala weapon — an improvised instrument of
-structural chaos that launches wet concrete at physics' face. In the movie's
-universe it levels a college campus. Here, it saves a dam. Same energy, better
-ethics.
+The strikes write themselves: *athiradi* literally translates to **strike**,
+which is exactly what you take every time a fish drifts into your firing line.
+And the fish move like Kuttan's temple-festival entourage — uninvited,
+unbothered, and somehow always in the way when something important is
+happening. They cannot be reasoned with. Every −10s flash is Kuttan collecting
+on a grudge.
 
-## �🎮 Play It
+The 60-second clock is the college committee deciding your fate. The five
+breaches are the five obstacles standing between Samkutty and Aarohan. And when
+you finally seal the dam — Vivi, self-appointed alpha male, will still claim he
+held the cement gun.
+
+Seal the dam. Conduct the fest. Make Joppan proud.
+
+## 🎮 Play It
 
 ```bash
 node server.js        # then open http://127.0.0.1:3000
@@ -84,7 +88,7 @@ Or just open `index.html` in a browser. It literally cannot get easier.
 | Fire at empty wall | Nothing repairs. The cement judges you |
 | Fish crosses your firing line | **MARINE IMPACT −10s** + a strike (athiradi) |
 | Shoot an already-sealed patch | Nothing. It's done. Let it go |
-| Hit **POLYMER BOOST** (`B`) | 2× repair speed for 5s (20s recharge) |
+| Hit **POLYMER BOOST** (`B`) | 2× repair speed for 5s — your Vineeth Sreenivasan cameo (20s recharge) |
 
 **Accuracy** = on-breach time ÷ total trigger time. Missing is expensive —
 morally *and* statistically.
