@@ -73,7 +73,7 @@ const PICK_FN = `(() => {
 (async () => {
   fs.mkdirSync(FRAMES, { recursive: true });
   const browser = await chromium.launch({ channel: 'chrome', headless: true });
-  const ctx = await browser.newContext({ viewport: { width: 960, height: 540 } });
+  const ctx = await browser.newContext({ viewport: { width: 1440, height: 810 } });
   const page = await ctx.newPage();
   page.on('pageerror', e => console.error('pageerror:', e.message));
 
@@ -88,7 +88,7 @@ const PICK_FN = `(() => {
     const stream = src.captureStream(30);
     const mime = ['video/webm;codecs=vp9', 'video/webm;codecs=vp8', 'video/webm']
       .find(m => MediaRecorder.isTypeSupported(m));
-    const mr = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: 2_500_000 });
+    const mr = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: 3_500_000 });
     mr.ondataavailable = e => { if (e.data.size) window.__rec.chunks.push(e.data); };
     mr.start(250);
     window.__rec.mr = mr;
